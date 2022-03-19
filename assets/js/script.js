@@ -45,7 +45,8 @@ var saveTasks = function() {
 };
 
 $(".list-group").on("click", "p", function() {
-    var text = $(this)          // also be written var text = $(this).text().trim()
+  // get current text of p element  
+  var text = $(this)          
     .text()
     .trim();
 
@@ -55,7 +56,6 @@ $(".list-group").on("click", "p", function() {
 
 $(this).replaceWith(textInput);
 textInput.trigger("focus");       // text box area is highlighted in blue
-
 });
 
 $(".list-group").on("blur", "textarea", function() {    //blur event
@@ -85,7 +85,7 @@ var taskP = $("<p>")      //converting <textarea> back into <p> element
 
 // replace textarea with p element
 $(this).replaceWith(taskP);
-})
+});
 
 // due date was clicked;  ability to edit due date
 $(".list-group").on("click", "span", function() {
