@@ -81,19 +81,23 @@ $(".card .list-group").sortable({
   helper: "clone",    
   //event listener; triggers once for all connected lists as soon as dragging starts and stop
   activate: function(event, ui) {
-    console.log(ui);
+    $(this).addClass("dropover");
+    $(".bottom-trash").addClass("bottom-trash-drag");
   },
   //event listener; triggers once for all connected lists as soon as dragging starts and stop
   deactivate: function(event, ui) {
-    console.log(ui);
+    $(this).removeClass("dropover");
+    $(".bottom-trash").removeClass("bottom-trash-drag");
   },
   //event listener; triggers when a dragged item enters or leaves a connected list
   over: function(event) {
-    console.log(event);
+    $(event.target).addClass("dropover-active");
+    $(".bottom-trash").addClass("bottom-trash-active");
   },
   //event listener; triggers when a dragged item enters or leaves a connected list
   out: function(event) {
-    console.log(event);
+    $(event.target).removeClass("dropover-active");
+    $(".bottom-trash").removeClass("bottom-trash-active");
   }, 
   //triggers when the contents of a list have changed (reordered, removed, added)
   update: function() {
@@ -161,7 +165,7 @@ $("#task-form-modal").on("shown.bs.modal", function() {
 });
 
 // save button in modal was clicked
-$("#task-form-modal .btn-primary").click(function() {
+$("#task-form-modal .btn-save").click(function() {
   // get form values
   var taskText = $("#modalTaskDescription").val();
   var taskDate = $("#modalDueDate").val();
@@ -311,3 +315,8 @@ $("#remove-tasks").on("click", function() {
 loadTasks();
 
 
+setInterval(function(){
+  $(".card .list-group-item").each(function(index, el){
+    auditTask(el);
+  });
+}, 1800000);
